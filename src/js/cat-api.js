@@ -1,4 +1,5 @@
 import axios from 'axios';
+import iziToast from "izitoast";
 
 axios.defaults.headers.common["x-api-key"] = 'live_HiesbHCNozFabauA2TlzO2OtiyWGedKBWDRv7zZNtooEj53fuPidluKoVAklkZzU';
 
