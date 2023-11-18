@@ -1,11 +1,14 @@
-img {
+.breed-select {
+    width: 300px;
+    margin: 20px auto;
+}
+.pic {
   object-fit: contain;
 }
-
 .cat-info {
   display: flex;
+  gap: 25px;
 }
-
 .loader {
   position: fixed;
   content: '';
@@ -15,6 +18,10 @@ img {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.2);
+  display: none;
+}
+.loader--visible {
+  display: block;
 }
 .loader::before {
   width: 48px;
