@@ -8,6 +8,10 @@ export const fetchBreeds = async () => {
 
         return resp.data; 
     } catch (err) {
+        iziToast.error({
+            title: 'Error occured',
+            message: 'Cannot fetch breeds. Try to reload page!'
+        });
         console.error('Cannot fetch breeds. Error occured: ', err);
     }
 }
@@ -18,6 +22,10 @@ export const fetchCatByBreed = async (id) => {
 
         return resp.data; 
     } catch (err) {
+        iziToast.error({
+            title: 'Error occured',
+            message: 'Cannot fetch breed info. Try to reload page!'
+        });
         console.error('Cannot fetch breed info. Error occured: ', err);
     }
 }
