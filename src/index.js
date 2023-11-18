@@ -1,3 +1,4 @@
+import SlimSelect from 'slim-select'
 import {fetchBreeds, fetchCatByBreed} from './js/cat-api.js';
 
 const breebsSelect = document.querySelector('.breed-select');
@@ -9,7 +10,7 @@ error.style.display = 'none';
 const renderBreedInfo = (breed) => {
     const breedInfo = breed.breeds[0];
     const infoHTMLElement = `
-        <img src="${breed.url}" width="600" height="600" style="object-fit: contain;"/>
+        <img src="${breed.url}" width="600" height="600"/>
         <div>
             <h2>${breedInfo.name}</h2>
             <p>${breedInfo.description}</p>
@@ -40,6 +41,9 @@ const main = async () => {
         const breeds = await fetchBreeds();
         const options = breeds.map((b) => `<option value="${b.id}">${b.name}</option>`).join('');
         breebsSelect.insertAdjacentHTML('afterbegin', options);
+        new SlimSelect({
+            select: breebsSelect
+        })
         breebsSelect.addEventListener('change', onBreedsSelectChange);
         loader.style.display = 'none';
     } catch (err) {
