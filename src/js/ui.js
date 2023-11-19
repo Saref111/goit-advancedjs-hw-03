@@ -1,10 +1,21 @@
 import SlimSelect from 'slim-select';
-
-import {fetchCatByBreed} from './cat-api.js';
+import iziToast from 'izitoast';
 
 const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 const breebsSelect = document.querySelector('.breed-select');
+
+export const renderErrorNotification = (err) => {
+    iziToast.error({
+        title: 'Error occured',
+        message: err.message,
+        timeout: false,
+    });
+};
+
+export const clearInfo = () => {
+    catInfo.innerHTML = '';
+};
 
 export const showLoader = () => {
     loader.classList.add('loader--visible');
@@ -24,29 +35,16 @@ export const renderBreedInfo = (breed) => {
             <ul>${breedInfo.temperament.split(', ').map((it) => `<li>${it}</li>`).join('')}</ul>
         </div>
     `;
-    catInfo.innerHTML = '';
     catInfo.insertAdjacentHTML('afterbegin', infoHTMLElement);
 };
 
-const onBreedsSelectChange = async (e) => {
-    const chosenBreed = e.target[e.target.selectedIndex];
-
-    try {
-        showLoader();
-        const resp = await fetchCatByBreed(chosenBreed.value);
-        renderBreedInfo(resp[0]);
-        hideLoader();
-    } catch (err) {
-        hideLoader();
-        console.error('Cannot render breed info. Error occured: ', err);
-    }
-};
-
-export const renderSelect = (breeds) => {
+export const renderSelect = (breeds, onChange) => {
     const options = breeds.map((b) => `<option value="${b.id}">${b.name}</option>`).join('');
     breebsSelect.insertAdjacentHTML('afterbegin', options);
+    
     const slimSelect = new SlimSelect({ select: breebsSelect });
-    breebsSelect.addEventListener('change', onBreedsSelectChange);
+    breebsSelect.addEventListener('change', onChange);
+    breebsSelect.classList.add('breed-select--visible');
     
     return slimSelect;
 };

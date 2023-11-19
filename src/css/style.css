@@ -1,6 +1,10 @@
 .breed-select {
     width: 300px;
     margin: 20px auto;
+    display: none;
+}
+.breed-select--visible {
+    display: flex;
 }
 .pic {
   object-fit: contain;
